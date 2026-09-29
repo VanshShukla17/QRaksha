@@ -1,0 +1,16 @@
+{
+  "name": "QRaksha - Merchant Self-Audit",
+  "short_name": "QRaksha",
+  "description": "UPI QR physical sticker tamper detection and public verification",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#1B4D8C",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
