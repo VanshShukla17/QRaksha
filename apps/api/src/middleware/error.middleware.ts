@@ -1,10 +1,46 @@
 import { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
 
-export interface AppError extends Error {
-  statusCode?: number;
-  code?: string;
-  details?: unknown;
+export class AppError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number = 500,
+    public code: string = "INTERNAL_ERROR",
+    public details?: unknown,
+  ) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+export class ConflictError extends AppError {
+  constructor(message: string, details?: unknown) {
+    super(message, 409, "CONFLICT", details);
+  }
+}
+
+export class ValidationError extends AppError {
+  constructor(message: string, details?: unknown) {
+    super(message, 400, "VALIDATION_ERROR", details);
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(message: string, details?: unknown) {
+    super(message, 404, "NOT_FOUND", details);
+  }
+}
+
+export class UnauthorizedError extends AppError {
+  constructor(message: string = "Missing or invalid authorization", details?: unknown) {
+    super(message, 401, "UNAUTHENTICATED", details);
+  }
+}
+
+export class ForbiddenError extends AppError {
+  constructor(message: string = "Access denied", details?: unknown) {
+    super(message, 403, "FORBIDDEN", details);
+  }
 }
 
 export function errorHandler(
