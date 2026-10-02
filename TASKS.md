@@ -1,6 +1,6 @@
 # TASKS.md — QRaksha
 
-## Critical Execution Rule
+### Critical Execution Rule
 
 Every coding session on this repository must, in order:
 
