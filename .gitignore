@@ -18,6 +18,8 @@ build/
 .next/
 out/
 *.tsbuildinfo
+supabase/.temp/
+.temp/
 
 # Testing & Coverage
 coverage/
