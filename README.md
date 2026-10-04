@@ -1,5 +1,7 @@
 # QRaksha
 
+Visual decisions live in DESIGN.md. Do not override them here.
+
 > Merchant self-audit tool that detects when a physical UPI QR sticker has been swapped, cloned, or relocated — backed by a five-agent AI verification pipeline and a public blockchain anchor for tamper-evident record-keeping.
 
 ## Documentation
@@ -7,6 +9,7 @@
 - [AGENTS.md](AGENTS.md) — Coding rules, workflow constraints, and definition of done
 - [PRD.md](PRD.md) — Product requirements document, user personas, UX states, and acceptance criteria
 - [ARCHITECTURE.md](ARCHITECTURE.md) — Technical stack, data model, API design, security, and infrastructure
+- [DESIGN.md](DESIGN.md) — Visual design system, color tokens, typography, layout rhythm, and component specifications
 - [TASKS.md](TASKS.md) — Phased task breakdown and completion tracking
 
 ## Workspaces
