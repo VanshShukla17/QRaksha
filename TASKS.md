@@ -1,20 +1,23 @@
 # TASKS.md — QRaksha
 
-###git switch main Critical Execution Rule
+Visual decisions live in DESIGN.md. Do not override them here.
+
+### Critical Execution Rule
 
 Every coding session on this repository must, in order:
 
 1. Read `AGENTS.md`
 2. Read `PRD.md`
 3. Read `ARCHITECTURE.md`
-4. Read `TASKS.md`
-5. Identify the **first incomplete task** (top-to-bottom, first unchecked box)
-6. Work ONLY on that task
-7. Run the relevant checks (`typecheck`, `lint`, relevant tests — see `AGENTS.md` Section 4)
-8. Review the implementation against the task's "Done when" criteria
-9. Update the task's checkbox(es) in this file
-10. Update `PRD.md`/`ARCHITECTURE.md` if the implementation required an architectural decision not already documented
-11. Stop and wait for review before beginning any unrelated task
+4. Read `DESIGN.md`
+5. Read `TASKS.md`
+6. Identify the **first incomplete task** (top-to-bottom, first unchecked box)
+7. Work ONLY on that task
+8. Run the relevant checks (`typecheck`, `lint`, relevant tests — see `AGENTS.md` Section 4)
+9. Review the implementation against the task's "Done when" criteria
+10. Update the task's checkbox(es) in this file
+11. Update `PRD.md`/`ARCHITECTURE.md`/`DESIGN.md` if the implementation required an architectural or design decision not already documented
+12. Stop and wait for review before beginning any unrelated task
 
 Do not skip ahead. Do not batch multiple unrelated tasks into one session.
 
@@ -45,7 +48,7 @@ Do not skip ahead. Do not batch multiple unrelated tasks into one session.
 - [x] Add a pre-commit git hook (via `husky` + `lint-staged`) running lint + format on staged files
 - [x] Establish base folder structure inside `apps/api` (`/routes`, `/agents`, `/services`, `/db`, `/middleware`)
 - [x] Establish base folder structure inside `apps/web` (`/app` routes matching `PRD.md` Section 7's information architecture)
-- [x] Build the application shell: `apps/web` root layout, bottom tab navigation component, theme tokens matching `PRD.md` Section 6's color system
+- [x] Build the application shell: `apps/web` root layout, bottom tab navigation component, theme tokens matching `DESIGN.md` Section 2 and Section 11
 - [x] Provision a Supabase project (dev) and connect `apps/api` to it via the service-role key
 - [x] Write the initial Supabase migration creating the `identity` and `comparison` schemas (empty, tables added in Phase 2)
 - [x] Wire Supabase Auth into `apps/web` (phone OTP sign-in) and `apps/api` (JWT validation middleware)
@@ -190,14 +193,14 @@ Do not skip ahead. Do not batch multiple unrelated tasks into one session.
 
 - [ ] Build the self-audit scan screen (`/audit/run`), reusing the Task 7 scan component
 - [ ] Build the loading state with per-agent status labels per `PRD.md` Section 6
-- [ ] Build the verdict result screen (full-screen takeover, colored band, icon, reason text)
+- [ ] Build the verdict result screen (full-screen takeover; verdict card matching `DESIGN.md` Section 5 with 4px border radius, 4px solid left edge in semantic verdict color, mono verdict label, one-line reason, 3-row evidence breakdown, top-right shield icon, zero shadows; never use brand orange for WARNING)
 - [ ] Build `/audit/history` with pagination
 
 **Depends on:** Task 9.
 
 **Done when:**
 
-- All three verdict outcomes render with visually and textually distinct states.
+- All three verdict outcomes render with visually and textually distinct states using semantic verdict tokens (`--ok`, `--warn`, `--danger`) per `DESIGN.md` Section 2.
 - History list paginates correctly against `GET /api/v1/audit/history`.
 
 ### Task 11 — Customer `/check` flow
@@ -251,17 +254,19 @@ Do not skip ahead. Do not batch multiple unrelated tasks into one session.
 - [ ] Unit tests: each of the five agents (mocked Gemini responses covering pass/fail/timeout)
 - [ ] Unit tests: trust-ramp scoring formula (boundary values around every threshold in `ARCHITECTURE.md` Section 4)
 - [ ] Integration/API tests: full registration flow, full self-audit flow, full dispute flow (Supertest against a test Supabase project)
-- [ ] Component tests: verdict result card in all three tiers, all UX states (loading/empty/error/disabled/permission-denied/offline) from `PRD.md` Section 6
+- [ ] Component tests: verdict result card in all three tiers, all UX states (loading/empty/error/disabled/permission-denied/offline) from `PRD.md` Section 6 and `DESIGN.md` Section 5
 - [ ] E2E tests (Playwright): the two flagship demo scenarios — QR replacement detected, QR relocation detected — run against the seeded demo registry
 - [ ] Edge case tests: duplicate GST registration, out-of-radius registration warning, degraded-mode verdict, unknown-QR check
-- [ ] Accessibility audit pass (automated via `axe-core` in Playwright + one manual screen-reader pass) against the acceptance criteria in `PRD.md` Section 6
+- [ ] Accessibility audit pass (automated via `axe-core` in Playwright + one manual screen-reader pass) against the acceptance criteria in `PRD.md` Section 6 and `DESIGN.md` Section 9
 
 ## Phase 6 — Polish
 
-- [ ] Responsive pass across the mobile/tablet/desktop breakpoints defined in `PRD.md` Section 6
+- [ ] Build the public landing page (`/`) matching `DESIGN.md` Section 8 exactly (10-section sequence, alternating dark/peach rhythm, Three.js cube-built QR slab hero visual over vertical-bar gradient, ticker bar, 1200px max width; see note below on `qraksha-hero-three.html`)
+  > Note on hero visual asset: The Three.js cube-built QR slab asset `qraksha-hero-three.html` referenced in `DESIGN.md` is not currently in this repo and must be added to the project (location to be decided). Do not create, generate, or stub this file in the meantime.
+- [ ] Responsive pass across the mobile/tablet/desktop breakpoints defined in `DESIGN.md` Section 9 and `PRD.md` Section 6
 - [ ] Confirm every feature's loading/empty/success/error/disabled/permission-denied/offline states are implemented, not just the happy path
-- [ ] Add the verdict-reveal animation with `prefers-reduced-motion` handling
-- [ ] Accessibility fixes from the Phase 5 audit
+- [ ] Add the verdict-reveal animation with `prefers-reduced-motion` handling (see `DESIGN.md` Section 7)
+- [ ] Accessibility fixes from the Phase 5 audit (see `DESIGN.md` Section 9)
 - [ ] Performance pass against the targets in `ARCHITECTURE.md` Section 11 (measure, don't guess)
 - [ ] Basic SEO/meta tags on the public landing (`/`) and `/verify/:credentialId` pages only (the rest of the app is behind auth or camera-first, where SEO doesn't apply)
 - [ ] Final UX copy review for plain language (target: understandable by Persona 1/2 from `PRD.md`, low technical sophistication)
